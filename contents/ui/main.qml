@@ -6,9 +6,15 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Item {
 	id: root
 
-	// TODO: config
-	// width: 300
-	// height: 10
+	// width: displayContent.width
+	// height: displayContent.height
+	// root.Layout.minimumWidth: 120
+	// root.Layout.minimumHeight: 12
+	// root.Layout.maximumWidth = 320
+	// root.Layout.maximumHeight = 48
+	width: 320
+	height: 8
+
 
 	property var metadata: mpris2Source.multiplexData
 		? mpris2Source.multiplexData.Metadata
@@ -40,14 +46,41 @@ Item {
 
 	// TODO: config
 	property string displayContent: {
+		if (!metadata) return "No media played"
 		return artist + " - " + trackTitle
 	}
 
 	Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
+
+    // Plasmoid.compactRepresentation: Flow {
+    // 	id: mainContent
+
+    // 	flow: Flow.LeftToRight
+    // 	// Layout.minimumWidth: mainContent.width
+
+    // 	Text {
+	   //      text: displayContent
+	   //      // effectiveHorizontalAlignment: Text.Align
+
+	   //      color: PlasmaCore.Theme.textColor
+	   //  	verticalAlignment: Text.AlignBottom
+	   //      // anchors.right: parent.right
+	   //      // anchors.bottom: parent.bottom
+	   //      // anchors.fill: parent
+	   //  }
+    // }
+
     Plasmoid.compactRepresentation: Text {
         text: displayContent
+        // effectiveHorizontalAlignment: Text.Align
+
         color: PlasmaCore.Theme.textColor
+    	verticalAlignment: Text.AlignVCenter
+        // anchors.right: parent.right
+        // anchors.bottom: parent.bottom
+        // anchors.fill: parent
     }
+    
 
     PlasmaCore.DataSource {
     	id: mpris2Source
