@@ -14,6 +14,8 @@ Item {
 	// root.Layout.maximumHeight = 48
 	width: 320
 	height: 8
+	// Layout.preferredWidth: 640 * units.devicePixelRatio
+	// Layout.preferredHeight: 480 * units.devicePixelRatio
 
 
 	property var metadata: mpris2Source.multiplexData
@@ -45,7 +47,7 @@ Item {
 	}
 
 	// TODO: config
-	property string displayContent: {
+	property string textContent: {
 		if (!metadata) return "No media played"
 		return artist + " - " + trackTitle
 	}
@@ -53,32 +55,35 @@ Item {
 	Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 
     // Plasmoid.compactRepresentation: Flow {
-    // 	id: mainContent
+    // 	id: contentComponent
 
     // 	flow: Flow.LeftToRight
+    // 	anchors.fill: parent
     // 	// Layout.minimumWidth: mainContent.width
 
-    // 	Text {
-	   //      text: displayContent
-	   //      // effectiveHorizontalAlignment: Text.Align
+    // 	// Text {
+    // 	// 	id: textContentComponent
+	   //  //     text: textContent
+	   //  //     // effectiveHorizontalAlignment: Text.Align
 
-	   //      color: PlasmaCore.Theme.textColor
-	   //  	verticalAlignment: Text.AlignBottom
-	   //      // anchors.right: parent.right
-	   //      // anchors.bottom: parent.bottom
-	   //      // anchors.fill: parent
-	   //  }
+	   //  //     color: PlasmaCore.Theme.textColor
+	   //  // 	verticalAlignment: Text.AlignVCenter
+	   //  // 	wrapMode: Text.WordWrap
+	   //  //     // anchors.right: parent.right
+	   //  //     // anchors.bottom: parent.bottom
+	   //  //     // anchors.fill: parent
+	   //  // }
+
+	   //  // Text {
+	   //  // 	text: textContentComponent.contentWidth
+	   //  // }
     // }
 
     Plasmoid.compactRepresentation: Text {
-        text: displayContent
-        // effectiveHorizontalAlignment: Text.Align
-
+    	id: textContentComponent
+        text: textContent
         color: PlasmaCore.Theme.textColor
     	verticalAlignment: Text.AlignVCenter
-        // anchors.right: parent.right
-        // anchors.bottom: parent.bottom
-        // anchors.fill: parent
     }
     
 
@@ -88,5 +93,9 @@ Item {
     	connectedSources: sources
     	// interval: 1000
     	readonly property var multiplexData: data["@multiplex"]
+
+    	onDataChanged: {
+    		width = displayContent.contentWidth
+    	}
     }
 }
