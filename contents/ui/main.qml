@@ -12,6 +12,9 @@ Item {
 	// Plasmoid.switchHeight: PlasmaCore.Units.gridUnit * 1
 	// height: 10
 
+	// Layout.minimumWidth: 120
+ //    Layout.minimumHeight: 12
+
 	property var metadata: mpris2Source.multiplexData
 		? mpris2Source.multiplexData.Metadata
 		: undefined
@@ -41,38 +44,48 @@ Item {
 	}
 
 	// TODO: config
-	property string displayContent: {
+	property string textContent: {
 		if (!metadata) return "No media played"
 		return artist + " - " + trackTitle
 	}
 
 	Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 
-    Plasmoid.compactRepresentation: Grid {
-    	id: mainContent
+    Plasmoid.compactRepresentation: RowLayout {
+    	id: mainContentComponent
+
+    	Layout.minimumWidth: textContentComponent.contentWidth
+    	Layout.minimumHeight: textContentComponent.contentHeight
+    	// Layout.maximumWidth: 350
+    	// Layout.maximumHeight: 48
 
     	// flow: Flow.LeftToRight
-    	Layout.minimumWidth: 300
-    	Layout.minimumHeight: 24
+    	
 
-    	readonly property int buttonSize: root.isVertical ? width : height
+    	// readonly property int buttonSize: root.isVertical ? width : height
 
-        columns: root.isVertical ? 1 : 3
-        rows: root.isVertical ? 3 : 1
+     //    columns: root.isVertical ? 1 : 3
+     //    rows: root.isVertical ? 3 : 1
 
         // Layout.minimumWidth: root.isVertical ? PlasmaCore.Units.iconSizes.small : ((height * 2) + spacer.width)
         // Layout.minimumHeight: root.isVertical ? ((width * 2) + spacer.height) : PlasmaCore.Units.iconSizes.small
 
     	Text {
-	        text: displayContent
+    		id: textContentComponent
+	        text: textContent
 	        // effectiveHorizontalAlignment: Text.Align
 
 	        color: PlasmaCore.Theme.textColor
-	    verticalAlignment: Text.AlignVCenter
+	    	verticalAlignment: Text.AlignVCenter
 	        // anchors.right: parent.right
 	        // anchors.bottom: parent.bottom
 	        // anchors.fill: parent
 	    }
+
+	    // Text {
+	    // 	text: textContentComponent.contentWidth
+	    // 	color: PlasmaCore.Theme.textColor
+	    // }
     }
 
     PlasmaCore.DataSource {
@@ -81,5 +94,10 @@ Item {
     	connectedSources: sources
     	// interval: 1000
     	readonly property var multiplexData: data["@multiplex"]
+
+    	onDataChanged: {
+    		Layout.minimumWidth = textContentComponent.contentWidth
+    		Layout.minimumHeight = textContentComponent.contentHeight
+    	}
     }
 }
