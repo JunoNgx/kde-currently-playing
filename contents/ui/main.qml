@@ -54,18 +54,23 @@ Item {
     }
 
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-    
-    Plasmoid.fullRepresentation: Text {
+    Plasmoid.fullRepresentation: OneLineLayout {
         id: oneLineLayout
-
         Layout.minimumWidth: oneLineLayout.contentWidth
         Layout.minimumHeight: oneLineLayout.contentHeight
-
-        text: oneLineTextContent
-        color: PlasmaCore.Theme.textColor
-        horizontalAlignment: Text.AlignRight
-        verticalAlignment: Text.AlignVCenter
     }
+    
+    // Plasmoid.fullRepresentation: Text {
+    //     id: oneLineLayout
+
+    //     Layout.minimumWidth: oneLineLayout.contentWidth
+    //     Layout.minimumHeight: oneLineLayout.contentHeight
+
+    //     text: oneLineTextContent
+    //     color: PlasmaCore.Theme.textColor
+    //     horizontalAlignment: Text.AlignRight
+    //     verticalAlignment: Text.AlignVCenter
+    // }
 
     // ColumnLayout {
     //     id: fullLayout
