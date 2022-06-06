@@ -34,56 +34,89 @@ Item {
             : ""
     }
 
-    property string textContent: {
+    property string oneLineTextContent: {
         if (!metadata) return "No media played"
         if (!trackTitle && !artist) return ""
         return artist + " - " + trackTitle
     }
 
-    property real getWidth: {
+
+    property var twoLineLayoutWidth: {
         return Math.max(
             artistContentComponent.contentWidth,
             trackContentComponent.contentWidth
         )
     }
 
-    property real getHeight: {
+    property var twoLineLayoutHeight: {
         return artistContentComponent.contentHeight
             + trackContentComponent.contentHeight
     }
 
-    Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+    
+    Plasmoid.fullRepresentation: Text {
+        id: oneLineLayout
 
-    Plasmoid.compactRepresentation: fullLayout
+        Layout.minimumWidth: oneLineLayout.contentWidth
+        Layout.minimumHeight: oneLineLayout.contentHeight
 
-
-    ColumnLayout {
-        id: fullLayout
-
-        Layout.minimumWidth: textContentComponent.contentWidth
-        Layout.minimumHeight: textContentComponent.contentHeight
-
-        Text {
-            id: artistContentComponent
-
-            text: artist
-            color: PlasmaCore.Theme.textColor
-            verticalAlignment: Text.AlignVCenter
-        }
-
-        Text {
-            id: trackContentComponent
-
-            text: trackTitle
-            color: PlasmaCore.Theme.textColor
-            verticalAlignment: Text.AlignVCenter
-        }
+        text: oneLineTextContent
+        color: PlasmaCore.Theme.textColor
+        horizontalAlignment: Text.AlignRight
+        verticalAlignment: Text.AlignVCenter
     }
+
+    // ColumnLayout {
+    //     id: fullLayout
+
+    //     Layout.minimumWidth: twoLineLayoutWidth
+    //     Layout.minimumHeight: twoLineLayoutHeight
+    //     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+    //     Text {
+    //         id: artistContentComponent
+
+    //         text: artist
+    //         color: PlasmaCore.Theme.textColor
+    //         horizontalAlignment: Text.AlignRight
+    //         verticalAlignment: Text.AlignVCenter
+
+    //     }
+
+    //     Text {
+    //         id: trackContentComponent
+
+    //         text: trackTitle
+    //         color: PlasmaCore.Theme.textColor
+    //         verticalAlignment: Text.AlignVCenter
+    //     }
+
+    //     Text {
+    //         id: debugContentComponent
+
+    //         text: twoLineLayoutWidth
+    //         color: PlasmaCore.Theme.textColor
+    //         verticalAlignment: Text.AlignVCenter
+    //     }
+    // }
+
+    // Text {
+    //     id: oneLineLayout
+
+    //     Layout.minimumWidth: oneLineLayout.contentWidth
+    //     Layout.minimumHeight: oneLineLayout.contentHeight
+
+    //     text: oneLineTextContent
+    //     color: PlasmaCore.Theme.textColor
+    //     horizontalAlignment: Text.AlignRight
+    //     verticalAlignment: Text.AlignVCenter
+    // }
 
     // Text {
     //     id: notPlayedLayout
 
-    //     text: textContent
+    //     text: "No media played"
     //     color: PlasmaCore.Theme.textColor
     //     verticalAlignment: Text.AlignVCenter
     // }
@@ -96,6 +129,10 @@ Item {
         // interval: 1000
         readonly property var multiplexData: data["@multiplex"]
 
+        onNewData: {
+            updateLayoutSize()
+        }
+
         onSourceAdded: {
             updateLayoutSize()
         }
@@ -106,11 +143,7 @@ Item {
     }
 
     function updateLayoutSize() {
-        Layout.minimumWidth = getWidth
-        Layout.minimumHeight = getHeight
-    }
-
-    function updateSourceData() {
-        // root.sourceData = 
+        Layout.minimumWidth = oneLineLayout.contentWidth
+        Layout.minimumHeight = oneLineLayout.contentHeight
     }
 }
