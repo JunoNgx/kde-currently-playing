@@ -13,9 +13,8 @@ Item {
     property string trackTitle: {
         if (!metadata) return "no metadata title found"
         if (metadata["xesam:title"]) return metadata["xesam:title"]
-        if (metadata["xesam:url"]) return metadata["xesam:url"].toString()
-        return "untitled"
-        return "yadda"
+        // if (metadata["xesam:url"]) return metadata["xesam:url"].toString()
+        return ""
     }
 
     property string artist: {
@@ -26,6 +25,7 @@ Item {
         } else {
             return metadata["xesam:artist"].join(", ")
         }
+        return ""
     }
 
     property string albumArt: {
@@ -36,30 +36,57 @@ Item {
 
     property string textContent: {
         if (!metadata) return "No media played"
+        if (!trackTitle && !artist) return ""
         return artist + " - " + trackTitle
+    }
+
+    property real getWidth: {
+        return Math.max(
+            artistContentComponent.contentWidth,
+            trackContentComponent.contentWidth
+        )
+    }
+
+    property real getHeight: {
+        return artistContentComponent.contentHeight
+            + trackContentComponent.contentHeight
     }
 
     Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
 
-    Plasmoid.compactRepresentation: RowLayout {
-        id: mainContentComponent
+    Plasmoid.compactRepresentation: fullLayout
+
+
+    ColumnLayout {
+        id: fullLayout
 
         Layout.minimumWidth: textContentComponent.contentWidth
         Layout.minimumHeight: textContentComponent.contentHeight
 
         Text {
-            id: textContentComponent
+            id: artistContentComponent
 
-            text: textContent
+            text: artist
             color: PlasmaCore.Theme.textColor
             verticalAlignment: Text.AlignVCenter
         }
 
-        // Text {
-        //  text: textContentComponent.contentWidth
-        //  color: PlasmaCore.Theme.textColor
-        // }
+        Text {
+            id: trackContentComponent
+
+            text: trackTitle
+            color: PlasmaCore.Theme.textColor
+            verticalAlignment: Text.AlignVCenter
+        }
     }
+
+    // Text {
+    //     id: notPlayedLayout
+
+    //     text: textContent
+    //     color: PlasmaCore.Theme.textColor
+    //     verticalAlignment: Text.AlignVCenter
+    // }
 
     PlasmaCore.DataSource {
         id: mpris2Source
@@ -69,9 +96,21 @@ Item {
         // interval: 1000
         readonly property var multiplexData: data["@multiplex"]
 
-        onDataChanged: {
-            Layout.minimumWidth = textContentComponent.contentWidth
-            Layout.minimumHeight = textContentComponent.contentHeight
+        onSourceAdded: {
+            updateLayoutSize()
         }
+
+        onSourceRemoved: {
+            updateLayoutSize()
+        }
+    }
+
+    function updateLayoutSize() {
+        Layout.minimumWidth = getWidth
+        Layout.minimumHeight = getHeight
+    }
+
+    function updateSourceData() {
+        // root.sourceData = 
     }
 }
