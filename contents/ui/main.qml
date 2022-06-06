@@ -37,7 +37,10 @@ Item {
     property string oneLineTextContent: {
         if (!metadata) return "No media played"
         if (!trackTitle && !artist) return ""
-        return artist + " - " + trackTitle
+        let content = artist + " - " + trackTitle
+        if (content.length > 60)
+            content = content.slice(0, 60)
+        return content
     }
 
 
