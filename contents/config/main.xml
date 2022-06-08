@@ -10,7 +10,7 @@
             <default>false</default>
         </entry>
         <entry name="shouldDisplayTitleFirst" type="Bool">
-            <default>false</default>
+            <default>true</default>
         </entry>
         <entry name="shouldAddLeadingWhitespaceToSeparator" type="Bool">
             <default>true</default>
@@ -22,14 +22,14 @@
             <default>40</default>
         </entry>
         <entry name="separatorString" type="String">
-            <default>-</default>
+            <default>|</default>
         </entry>
         
         <entry name="shouldUseDefaultThemeFontSize" type="Bool">
             <default>true</default>
         </entry>
         <entry name="configuredFontSize" type="Int">
-            <default>16</default>
+            <default>18</default>
         </entry>
     </group>
 </kcfg>
