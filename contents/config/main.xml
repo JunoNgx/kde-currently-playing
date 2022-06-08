@@ -18,17 +18,18 @@
         <entry name="shouldAddTrailingWhitespaceToSeparator" type="Bool">
             <default>true</default>
         </entry>
-        <entry name="shouldUseDefaultThemeFontSize" type="Bool">
-            <default>true</default>
-        </entry>
-        <entry name="configuredFontSize" type="Int">
-            <default>16</default>
-        </entry>
         <entry name="characterLimit" type="Int">
             <default>40</default>
         </entry>
         <entry name="separatorString" type="String">
             <default>-</default>
+        </entry>
+        
+        <entry name="shouldUseDefaultThemeFontSize" type="Bool">
+            <default>true</default>
+        </entry>
+        <entry name="configuredFontSize" type="Int">
+            <default>16</default>
         </entry>
     </group>
 </kcfg>

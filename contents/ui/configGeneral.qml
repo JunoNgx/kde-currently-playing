@@ -6,13 +6,13 @@ import org.kde.kirigami 2.4 as Kirigami
 Kirigami.FormLayout {
     id: page
   
-    property alias cfg_characterLimit: characterLimit.text
     property alias cfg_shouldDisplayTitleOnly: shouldDisplayTitleOnly.checked
     property alias cfg_shouldDisplayTitleFirst: shouldDisplayTitleFirst.checked
     property alias cfg_shouldAddLeadingWhitespaceToSeparator: shouldAddLeadingWhitespaceToSeparator.checked
     property alias cfg_shouldAddTrailingWhitespaceToSeparator: shouldAddTrailingWhitespaceToSeparator.checked
-    property alias cfg_shouldUseDefaultThemeFontSize: shouldUseDefaultThemeFontSize.checked
+    property alias cfg_characterLimit: characterLimit.text
     property alias cfg_separatorString: separatorString.text
+    property alias cfg_shouldUseDefaultThemeFontSize: shouldUseDefaultThemeFontSize.checked
     property alias cfg_configuredFontSize: configuredFontSize.text
 
     CheckBox {
@@ -36,18 +36,6 @@ Kirigami.FormLayout {
         text: i18n("Add trailing white space to separator string")
     }
 
-    CheckBox {
-        id: shouldUseDefaultThemeFontSize
-        text: i18n("Ignore the setting below and use theme default size")
-    }
-
-    TextField {
-        id: configuredFontSize
-        Kirigami.FormData.label: i18n("Custom font size:")
-        placeholderText: i18n("")
-        validator: IntValidator {bottom: 0; top: 9999}
-    }
-
     TextField {
         id: characterLimit
         Kirigami.FormData.label: i18n("Character Limit:")
@@ -59,5 +47,17 @@ Kirigami.FormLayout {
         id: separatorString
         Kirigami.FormData.label: i18n("Separator string:")
         placeholderText: i18n("")
+    }
+
+    CheckBox {
+        id: shouldUseDefaultThemeFontSize
+        text: i18n("Ignore the setting below and use theme default size")
+    }
+
+    TextField {
+        id: configuredFontSize
+        Kirigami.FormData.label: i18n("Custom font size:")
+        placeholderText: i18n("")
+        validator: IntValidator {bottom: 0; top: 9999}
     }
 }
