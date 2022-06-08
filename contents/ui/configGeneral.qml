@@ -39,6 +39,7 @@ Kirigami.FormLayout {
         id: characterLimit
         Kirigami.FormData.label: i18n("Character Limit:")
         placeholderText: i18n("")
+        validator: IntValidator {bottom: 0; top: 9999}
     }
 
     TextField {
