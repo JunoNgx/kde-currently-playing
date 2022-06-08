@@ -37,9 +37,24 @@ Item {
     property string oneLineTextContent: {
         if (!metadata) return "No media played"
         if (!trackTitle && !artist) return ""
-        let content = artist + " - " + trackTitle
-        if (content.length > 60)
-            content = content.slice(0, 60)
+
+        if (plasmoid.configuration.shouldDisplayTitleOnly)
+            return trackTitle
+
+        let content
+        if (plasmoid.configuration.shouldDisplayTitleFirst) {
+            content = trackTitle
+                + plasmoid.configuration.separatorString
+                + artist
+        } else {
+            content = artist
+                + plasmoid.configuration.separatorString
+                + trackTitle
+        }
+
+        if (content.length > plasmoid.configuration.characterLimit)
+            content = content.slice(0, plasmoid.configuration.characterLimit)
+
         return content
     }
 
