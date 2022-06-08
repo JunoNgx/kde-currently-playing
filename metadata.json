@@ -7,7 +7,7 @@
             }
         ],
         "Category": "Multimedia",
-        "Description": "A customizable way to display the currently playing media.",
+        "Description": "A minimal way to display the currently playing media info.",
         "Icon": "preferences-media-playback-amarok",
         "Id": "com.junongx.kde.currentlyplaying",
         "License": "MIT License",
