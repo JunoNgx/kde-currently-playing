@@ -6,7 +6,7 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Text {
     property int fontSize: {
     return (plasmoid.configuration.shouldUseDefaultThemeFontSize)
-        ? Plasmoid.Theme.defaultFont.pixelSize
+        ? PlasmaCore.Theme.defaultFont.pixelSize
         : plasmoid.configuration.configuredFontSize
     }
 
