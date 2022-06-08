@@ -15,7 +15,7 @@
         "ServiceTypes": [
             "Plasma/Applet"
         ],
-        "Version": "1",
+        "Version": "1.0",
         "Website": "https://github.com/JunoNgx/kde-currently-playing"
     },
     "X-Plasma-API": "declarativeappletscript",
