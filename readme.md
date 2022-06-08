@@ -1,10 +1,15 @@
 # KDE Currently Playing
 
-A widget for the Linux Desktop Environment KDE Plasma.
+A minimal widget for the Linux Desktop Environment KDE Plasma, **Currently Playing** is quiet, undistracting, and straight-forward. It does one thing and one thing alone: display the title and artist of the media currently being played.
+
+The widget was made for personal use following my dissatisfaction with other tools of similar functions for KDE Plasma. A publishing plan is pending.
 
 ## Features
 
-// TODO
+- Display of current media using the data engine `mpris2`
+- Switch sequence of track title and artist
+- Customizable separator string between track title and artist
+- Font size settings
 
 ## Installation
 
