@@ -28,12 +28,12 @@ Kirigami.FormLayout {
 
     CheckBox {
         id: shouldAddLeadingWhitespaceToSeparator
-        text: i18n("Add leading white space to separator string")
+        text: i18n("Add leading whitespace to separator string")
     }
 
     CheckBox {
         id: shouldAddTrailingWhitespaceToSeparator
-        text: i18n("Add trailing white space to separator string")
+        text: i18n("Add trailing whitespace to separator string")
     }
 
     TextField {
