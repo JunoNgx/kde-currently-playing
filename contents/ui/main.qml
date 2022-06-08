@@ -34,6 +34,20 @@ Item {
             : ""
     }
 
+    property string separatorString: {
+        let separatorStr = ""
+
+        if (plasmoid.configuration.shouldAddLeadingWhitespaceToSeparator)
+            separatorStr += " "
+
+        separatorStr += plasmoid.configuration.separatorString
+
+        if (plasmoid.configuration.shouldAddTrailingWhitespaceToSeparator)
+            separatorStr += " "
+
+        return separatorStr
+    }
+
     property string oneLineTextContent: {
         if (!metadata) return "No media played"
         if (!trackTitle && !artist) return ""
@@ -44,11 +58,11 @@ Item {
         let content
         if (plasmoid.configuration.shouldDisplayTitleFirst) {
             content = trackTitle
-                + plasmoid.configuration.separatorString
+                + separatorString
                 + artist
         } else {
             content = artist
-                + plasmoid.configuration.separatorString
+                + separatorString
                 + trackTitle
         }
 
