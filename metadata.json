@@ -10,6 +10,7 @@
         "Description": "A customizable way to display the currently playing media.",
         "Icon": "preferences-media-playback-amarok",
         "Id": "com.junongx.kde.currentlyplaying",
+        "License": "MIT License",
         "Name": "Currently Playing",
         "ServiceTypes": [
             "Plasma/Applet"
