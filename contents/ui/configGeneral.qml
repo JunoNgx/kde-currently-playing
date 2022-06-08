@@ -11,8 +11,9 @@ Kirigami.FormLayout {
     property alias cfg_shouldDisplayTitleFirst: shouldDisplayTitleFirst.checked
     property alias cfg_shouldAddLeadingWhitespaceToSeparator: shouldAddLeadingWhitespaceToSeparator.checked
     property alias cfg_shouldAddTrailingWhitespaceToSeparator: shouldAddTrailingWhitespaceToSeparator.checked
+    property alias cfg_shouldUseDefaultThemeFontSize: shouldUseDefaultThemeFontSize.checked
     property alias cfg_separatorString: separatorString.text
-    // property alias cfg_textSize: textSize.text
+    property alias cfg_configuredFontSize: configuredFontSize.text
 
     CheckBox {
         id: shouldDisplayTitleOnly
@@ -33,6 +34,18 @@ Kirigami.FormLayout {
     CheckBox {
         id: shouldAddTrailingWhitespaceToSeparator
         text: i18n("Add trailing white space to separator string")
+    }
+
+    CheckBox {
+        id: shouldUseDefaultThemeFontSize
+        text: i18n("Ignore the setting below and use theme default size")
+    }
+
+    TextField {
+        id: configuredFontSize
+        Kirigami.FormData.label: i18n("Custom font size:")
+        placeholderText: i18n("")
+        validator: IntValidator {bottom: 0; top: 9999}
     }
 
     TextField {
