@@ -6,6 +6,6 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Text {
     text: oneLineTextContent
     color: PlasmaCore.Theme.textColor
-    horizontalAlignment: Text.AlignRight
+    // horizontalAlignment: Text.AlignRight
     verticalAlignment: Text.AlignVCenter
 }
