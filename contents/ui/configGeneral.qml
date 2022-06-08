@@ -9,6 +9,8 @@ Kirigami.FormLayout {
     property alias cfg_characterLimit: characterLimit.text
     property alias cfg_shouldDisplayTitleOnly: shouldDisplayTitleOnly.checked
     property alias cfg_shouldDisplayTitleFirst: shouldDisplayTitleFirst.checked
+    property alias cfg_shouldAddLeadingWhitespaceToSeparator: shouldAddLeadingWhitespaceToSeparator.checked
+    property alias cfg_shouldAddTrailingWhitespaceToSeparator: shouldAddTrailingWhitespaceToSeparator.checked
     property alias cfg_separatorString: separatorString.text
     // property alias cfg_textSize: textSize.text
 
@@ -21,6 +23,16 @@ Kirigami.FormLayout {
     CheckBox {
         id: shouldDisplayTitleFirst
         text: i18n("Display title first")
+    }
+
+    CheckBox {
+        id: shouldAddLeadingWhitespaceToSeparator
+        text: i18n("Add leading white space to separator string")
+    }
+
+    CheckBox {
+        id: shouldAddTrailingWhitespaceToSeparator
+        text: i18n("Add trailing white space to separator string")
     }
 
     TextField {
