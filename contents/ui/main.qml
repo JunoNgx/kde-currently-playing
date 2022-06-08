@@ -85,6 +85,32 @@ Item {
             + trackContentComponent.contentHeight
     }
 
+    PlasmaCore.DataSource {
+        id: mpris2Source
+
+        engine: "mpris2"
+        connectedSources: sources
+        // interval: 1000
+        readonly property var multiplexData: data["@multiplex"]
+
+        onNewData: {
+            updateLayoutSize()
+        }
+
+        onSourceAdded: {
+            updateLayoutSize()
+        }
+
+        onSourceRemoved: {
+            updateLayoutSize()
+        }
+    }
+
+    function updateLayoutSize() {
+        Layout.minimumWidth = oneLineLayout.contentWidth
+        Layout.minimumHeight = oneLineLayout.contentHeight
+    }
+
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     Plasmoid.fullRepresentation: OneLineLayout {
         id: oneLineLayout
@@ -157,30 +183,4 @@ Item {
     //     color: PlasmaCore.Theme.textColor
     //     verticalAlignment: Text.AlignVCenter
     // }
-
-    PlasmaCore.DataSource {
-        id: mpris2Source
-
-        engine: "mpris2"
-        connectedSources: sources
-        // interval: 1000
-        readonly property var multiplexData: data["@multiplex"]
-
-        onNewData: {
-            updateLayoutSize()
-        }
-
-        onSourceAdded: {
-            updateLayoutSize()
-        }
-
-        onSourceRemoved: {
-            updateLayoutSize()
-        }
-    }
-
-    function updateLayoutSize() {
-        Layout.minimumWidth = oneLineLayout.contentWidth
-        Layout.minimumHeight = oneLineLayout.contentHeight
-    }
 }
