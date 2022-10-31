@@ -49,7 +49,7 @@ Item {
     }
 
     property string oneLineTextContent: {
-        if (!metadata) return "No media"
+        if (!metadata) return plasmoid.configuration.noMediaString
         if (!trackTitle && !artist) return ""
 
         if (plasmoid.configuration.shouldDisplayTitleOnly)
