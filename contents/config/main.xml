@@ -24,6 +24,9 @@
         <entry name="separatorString" type="String">
             <default>|</default>
         </entry>
+        <entry name="noMediaString" type="String">
+            <default>No media</default>
+        </entry>
         
         <entry name="shouldUseDefaultThemeFontSize" type="Bool">
             <default>true</default>
