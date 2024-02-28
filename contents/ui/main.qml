@@ -1,9 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasma5support as Plasma5Support
+import org.kde.plasma.plasmoid
 
-Item {
+PlasmoidItem {
     id: root
 
     property var metadata: mpris2Source.multiplexData
@@ -86,7 +87,7 @@ Item {
             + trackContentComponent.contentHeight
     }
 
-    PlasmaCore.DataSource {
+    Plasma5Support.DataSource {
         id: mpris2Source
 
         engine: "mpris2"
@@ -112,76 +113,10 @@ Item {
         Layout.minimumHeight = oneLineLayout.contentHeight
     }
 
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-    Plasmoid.fullRepresentation: OneLineLayout {
+    preferredRepresentation: fullRepresentation
+    fullRepresentation: OneLineLayout {
         id: oneLineLayout
         Layout.minimumWidth: oneLineLayout.contentWidth
         Layout.minimumHeight: oneLineLayout.contentHeight
     }
-    
-    // Plasmoid.fullRepresentation: Text {
-    //     id: oneLineLayout
-
-    //     Layout.minimumWidth: oneLineLayout.contentWidth
-    //     Layout.minimumHeight: oneLineLayout.contentHeight
-
-    //     text: oneLineTextContent
-    //     color: PlasmaCore.Theme.textColor
-    //     horizontalAlignment: Text.AlignRight
-    //     verticalAlignment: Text.AlignVCenter
-    // }
-
-    // ColumnLayout {
-    //     id: fullLayout
-
-    //     Layout.minimumWidth: twoLineLayoutWidth
-    //     Layout.minimumHeight: twoLineLayoutHeight
-    //     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-    //     Text {
-    //         id: artistContentComponent
-
-    //         text: artist
-    //         color: PlasmaCore.Theme.textColor
-    //         horizontalAlignment: Text.AlignRight
-    //         verticalAlignment: Text.AlignVCenter
-
-    //     }
-
-    //     Text {
-    //         id: trackContentComponent
-
-    //         text: trackTitle
-    //         color: PlasmaCore.Theme.textColor
-    //         verticalAlignment: Text.AlignVCenter
-    //     }
-
-    //     Text {
-    //         id: debugContentComponent
-
-    //         text: twoLineLayoutWidth
-    //         color: PlasmaCore.Theme.textColor
-    //         verticalAlignment: Text.AlignVCenter
-    //     }
-    // }
-
-    // Text {
-    //     id: oneLineLayout
-
-    //     Layout.minimumWidth: oneLineLayout.contentWidth
-    //     Layout.minimumHeight: oneLineLayout.contentHeight
-
-    //     text: oneLineTextContent
-    //     color: PlasmaCore.Theme.textColor
-    //     horizontalAlignment: Text.AlignRight
-    //     verticalAlignment: Text.AlignVCenter
-    // }
-
-    // Text {
-    //     id: notPlayedLayout
-
-    //     text: "No media played"
-    //     color: PlasmaCore.Theme.textColor
-    //     verticalAlignment: Text.AlignVCenter
-    // }
 }
