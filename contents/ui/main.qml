@@ -1,37 +1,30 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.1
 import org.kde.plasma.core as PlasmaCore
-import org.kde.plasma.plasma5support as Plasma5Support
 import org.kde.plasma.plasmoid
+import org.kde.plasma.private.mpris as Mpris
 
 PlasmoidItem {
     id: root
 
-    property var metadata: mpris2Source.multiplexData
-        ? mpris2Source.multiplexData.Metadata
-        : undefined
+    property var metadata: mpris2Model.currentPlayer ? mpris2Model.currentPlayer : undefined
 
     property string trackTitle: {
         if (!metadata) return "no metadata title found"
-        if (metadata["xesam:title"]) return metadata["xesam:title"]
+        if (metadata.track) return metadata.track
         // if (metadata["xesam:url"]) return metadata["xesam:url"].toString()
         return ""
     }
 
     property string artist: {
         if (!metadata) return "no metadata artist found"
-        if (metadata["xesam:artist"]) return metadata["xesam:artist"]
-        if (typeof metadata["xesam:artist"] === "string") {
-            return metadata["xesam:artist"]
-        } else {
-            return metadata["xesam:artist"].join(", ")
-        }
+        if (metadata.artist) return metadata.artist
         return ""
     }
 
     property string albumArt: {
         return metadata
-            ? metadata["mpris:artUrl"] || ""
+            ? metadata.artUrl || ""
             : ""
     }
 
@@ -87,23 +80,12 @@ PlasmoidItem {
             + trackContentComponent.contentHeight
     }
 
-    Plasma5Support.DataSource {
-        id: mpris2Source
-
-        engine: "mpris2"
-        connectedSources: sources
-        // interval: 1000
-        readonly property var multiplexData: data["@multiplex"]
-
-        onNewData: {
+    Mpris.Mpris2Model {
+        id: mpris2Model
+        onDataChanged: {
             updateLayoutSize()
         }
-
-        onSourceAdded: {
-            updateLayoutSize()
-        }
-
-        onSourceRemoved: {
+        onCurrentPlayerChanged: {
             updateLayoutSize()
         }
     }
