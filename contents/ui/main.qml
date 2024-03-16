@@ -1,36 +1,30 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.1
-import org.kde.plasma.plasmoid 2.0
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.core as PlasmaCore
+import org.kde.plasma.plasmoid
+import org.kde.plasma.private.mpris as Mpris
 
-Item {
+PlasmoidItem {
     id: root
 
-    property var metadata: mpris2Source.multiplexData
-        ? mpris2Source.multiplexData.Metadata
-        : undefined
+    property var metadata: mpris2Model.currentPlayer ? mpris2Model.currentPlayer : undefined
 
     property string trackTitle: {
         if (!metadata) return "no metadata title found"
-        if (metadata["xesam:title"]) return metadata["xesam:title"]
+        if (metadata.track) return metadata.track
         // if (metadata["xesam:url"]) return metadata["xesam:url"].toString()
         return ""
     }
 
     property string artist: {
         if (!metadata) return "no metadata artist found"
-        if (metadata["xesam:artist"]) return metadata["xesam:artist"]
-        if (typeof metadata["xesam:artist"] === "string") {
-            return metadata["xesam:artist"]
-        } else {
-            return metadata["xesam:artist"].join(", ")
-        }
+        if (metadata.artist) return metadata.artist
         return ""
     }
 
     property string albumArt: {
         return metadata
-            ? metadata["mpris:artUrl"] || ""
+            ? metadata.artUrl || ""
             : ""
     }
 
@@ -50,6 +44,7 @@ Item {
 
     property string oneLineTextContent: {
         if (!metadata) return plasmoid.configuration.noMediaString
+        if (trackTitle == "" && artist == "no metadata artist found") return plasmoid.configuration.noArtistString
         if (!trackTitle && !artist) return ""
 
         if (plasmoid.configuration.shouldDisplayTitleOnly)
@@ -85,23 +80,12 @@ Item {
             + trackContentComponent.contentHeight
     }
 
-    PlasmaCore.DataSource {
-        id: mpris2Source
-
-        engine: "mpris2"
-        connectedSources: sources
-        // interval: 1000
-        readonly property var multiplexData: data["@multiplex"]
-
-        onNewData: {
+    Mpris.Mpris2Model {
+        id: mpris2Model
+        onDataChanged: {
             updateLayoutSize()
         }
-
-        onSourceAdded: {
-            updateLayoutSize()
-        }
-
-        onSourceRemoved: {
+        onCurrentPlayerChanged: {
             updateLayoutSize()
         }
     }
@@ -111,76 +95,10 @@ Item {
         Layout.minimumHeight = oneLineLayout.contentHeight
     }
 
-    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
-    Plasmoid.fullRepresentation: OneLineLayout {
+    preferredRepresentation: fullRepresentation
+    fullRepresentation: OneLineLayout {
         id: oneLineLayout
         Layout.minimumWidth: oneLineLayout.contentWidth
         Layout.minimumHeight: oneLineLayout.contentHeight
     }
-    
-    // Plasmoid.fullRepresentation: Text {
-    //     id: oneLineLayout
-
-    //     Layout.minimumWidth: oneLineLayout.contentWidth
-    //     Layout.minimumHeight: oneLineLayout.contentHeight
-
-    //     text: oneLineTextContent
-    //     color: PlasmaCore.Theme.textColor
-    //     horizontalAlignment: Text.AlignRight
-    //     verticalAlignment: Text.AlignVCenter
-    // }
-
-    // ColumnLayout {
-    //     id: fullLayout
-
-    //     Layout.minimumWidth: twoLineLayoutWidth
-    //     Layout.minimumHeight: twoLineLayoutHeight
-    //     Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-
-    //     Text {
-    //         id: artistContentComponent
-
-    //         text: artist
-    //         color: PlasmaCore.Theme.textColor
-    //         horizontalAlignment: Text.AlignRight
-    //         verticalAlignment: Text.AlignVCenter
-
-    //     }
-
-    //     Text {
-    //         id: trackContentComponent
-
-    //         text: trackTitle
-    //         color: PlasmaCore.Theme.textColor
-    //         verticalAlignment: Text.AlignVCenter
-    //     }
-
-    //     Text {
-    //         id: debugContentComponent
-
-    //         text: twoLineLayoutWidth
-    //         color: PlasmaCore.Theme.textColor
-    //         verticalAlignment: Text.AlignVCenter
-    //     }
-    // }
-
-    // Text {
-    //     id: oneLineLayout
-
-    //     Layout.minimumWidth: oneLineLayout.contentWidth
-    //     Layout.minimumHeight: oneLineLayout.contentHeight
-
-    //     text: oneLineTextContent
-    //     color: PlasmaCore.Theme.textColor
-    //     horizontalAlignment: Text.AlignRight
-    //     verticalAlignment: Text.AlignVCenter
-    // }
-
-    // Text {
-    //     id: notPlayedLayout
-
-    //     text: "No media played"
-    //     color: PlasmaCore.Theme.textColor
-    //     verticalAlignment: Text.AlignVCenter
-    // }
 }

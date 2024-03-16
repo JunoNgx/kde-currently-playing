@@ -13,6 +13,7 @@ Kirigami.FormLayout {
     property alias cfg_characterLimit: characterLimit.text
     property alias cfg_separatorString: separatorString.text
     property alias cfg_noMediaString: noMediaString.text
+    property alias cfg_noArtistString: noArtistString.text
     property alias cfg_shouldUseDefaultThemeFontSize: shouldUseDefaultThemeFontSize.checked
     property alias cfg_configuredFontSize: configuredFontSize.text
 
@@ -53,6 +54,12 @@ Kirigami.FormLayout {
     TextField {
         id: noMediaString
         Kirigami.FormData.label: i18n("Text to show when not playing any media (or no info is available):")
+        placeholderText: i18n("")
+    }
+
+    TextField {
+        id: noArtistString
+        Kirigami.FormData.label: i18n("Text to show when artist is not found from metadata:")
         placeholderText: i18n("")
     }
 

@@ -27,6 +27,9 @@
         <entry name="noMediaString" type="String">
             <default>No media</default>
         </entry>
+        <entry name="noArtistString" type="String">
+            <default>No artist</default>
+        </entry>
         
         <entry name="shouldUseDefaultThemeFontSize" type="Bool">
             <default>true</default>
